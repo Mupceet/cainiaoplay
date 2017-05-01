@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.cniao5.cniao5play.di.component.AppComponent;
 import com.cniao5.cniao5play.di.component.DaggerAppComponent;
-import com.cniao5.cniao5play.di.module.AppModule;
+import com.cniao5.cniao5play.di.module.ApplicationModule;
 import com.cniao5.cniao5play.di.module.HttpModule;
 import com.google.gson.Gson;
 
@@ -30,7 +30,6 @@ public class AppApplication extends Application {
         super.onCreate();
 
         mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
                 .httpModule(new HttpModule())
                 .build();
     }
