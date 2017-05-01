@@ -15,8 +15,10 @@ import android.widget.Toast;
 import com.cniao5.cniao5play.AppApplication;
 import com.cniao5.cniao5play.R;
 import com.cniao5.cniao5play.bean.AppInfo;
+import com.cniao5.cniao5play.di.component.AppComponent;
 import com.cniao5.cniao5play.di.component.DaggerRecommendComponent;
 import com.cniao5.cniao5play.di.module.RecommendModule;
+import com.cniao5.cniao5play.presenter.RecommendPresenter;
 import com.cniao5.cniao5play.presenter.contract.RecommendContract;
 import com.cniao5.cniao5play.ui.adapter.RecommendAppAdapter;
 import com.cniao5.cniao5play.ui.decoration.DividerItemDecoration;
@@ -33,7 +35,7 @@ import butterknife.ButterKnife;
  * Created by Ivan on 16/9/26.
  */
 
-public class RecommendFragment extends Fragment implements RecommendContract.View {
+public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
 
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
@@ -43,25 +45,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     @Inject
     ProgressDialog mProgressDialog;
 
-    @Inject
-    RecommendContract.Presenter mPresenter;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recomend, container, false);
-        ButterKnife.bind(this, view);
-
-        DaggerRecommendComponent.builder()
-                .appComponent(((AppApplication)getActivity().getApplicationContext()).getAppComponent()                )
-                .recommendModule(new RecommendModule(this))
-                .build()
-                .inject(this);
-
-        initData();
-        return view;
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -69,7 +52,22 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
     }
 
-    private void initData() {
+    @Override
+    public int setLayout() {
+        return R.layout.fragment_recomend;
+    }
+
+    @Override
+    public void setupActivityComponent(AppComponent appComponent) {
+        DaggerRecommendComponent.builder()
+                .appComponent(appComponent)
+                .recommendModule(new RecommendModule(this))
+                .build()
+                .inject(this);
+    }
+
+    @Override
+    public void init() {
         mPresenter.requestData();
     }
 
