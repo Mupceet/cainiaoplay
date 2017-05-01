@@ -5,6 +5,8 @@ import com.cniao5.cniao5play.bean.PageBean;
 import com.cniao5.cniao5play.data.RecommendModel;
 import com.cniao5.cniao5play.presenter.contract.RecommendContract;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,13 +16,14 @@ import retrofit2.Response;
  */
 
 public class RecommendPresenter implements RecommendContract.Presenter {
+
     private RecommendModel mModel;
 
     private RecommendContract.View mView;
 
-    public RecommendPresenter(RecommendContract.View view) {
+    public RecommendPresenter(RecommendContract.View view, RecommendModel model) {
         this.mView = view;
-        mModel = new RecommendModel();
+        mModel = model;
     }
 
     @Override

@@ -12,14 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.cniao5.cniao5play.AppApplication;
 import com.cniao5.cniao5play.R;
 import com.cniao5.cniao5play.bean.AppInfo;
-import com.cniao5.cniao5play.presenter.RecommendPresenter;
+import com.cniao5.cniao5play.di.component.DaggerRecommendComponent;
+import com.cniao5.cniao5play.di.module.RecommendModule;
 import com.cniao5.cniao5play.presenter.contract.RecommendContract;
 import com.cniao5.cniao5play.ui.adapter.RecommendAppAdapter;
 import com.cniao5.cniao5play.ui.decoration.DividerItemDecoration;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,19 +40,33 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
     private RecommendAppAdapter mAdapter;
 
-    private ProgressDialog mProgressDialog;
+    @Inject
+    ProgressDialog mProgressDialog;
 
-    private RecommendContract.Presenter mPresenter;
+    @Inject
+    RecommendContract.Presenter mPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recomend, container, false);
         ButterKnife.bind(this, view);
-        mProgressDialog = new ProgressDialog(getActivity());
-        mPresenter = new RecommendPresenter(this);
+
+        DaggerRecommendComponent.builder()
+                .appComponent(((AppApplication)getActivity().getApplicationContext()).getAppComponent()                )
+                .recommendModule(new RecommendModule(this))
+                .build()
+                .inject(this);
+
         initData();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
     }
 
     private void initData() {

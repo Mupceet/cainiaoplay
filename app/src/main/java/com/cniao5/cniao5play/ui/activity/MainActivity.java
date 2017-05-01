@@ -1,6 +1,5 @@
 package com.cniao5.cniao5play.ui.activity;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -42,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initDrawerLayout();
-        initTablayout();
+        initTabLayout();
 
     }
 
-    private void initTablayout() {
+    private void initTabLayout() {
         PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);

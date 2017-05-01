@@ -1,4 +1,4 @@
-package com.cniao5.cniao5play.http;
+package com.cniao5.cniao5play.data.http;
 
 import com.cniao5.cniao5play.bean.AppInfo;
 import com.cniao5.cniao5play.bean.PageBean;
