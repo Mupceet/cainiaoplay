@@ -54,4 +54,7 @@ dependencies {
     compile "com.mikepenz:iconics-core:2.8.3@aar"
     compile 'com.mikepenz:ionicons-typeface:2.0.1.2@aar'
 
+    // pathview
+    compile 'com.eftimoff:android-pathview:1.0.8@aar'
+
 }
