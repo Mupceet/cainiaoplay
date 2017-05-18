@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="android-pathview-1.0.8">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/0667ac0c67560091ee489e223817f56f9ced759a/output/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.android/build-cache/0667ac0c67560091ee489e223817f56f9ced759a/output/jars/libs/androidsvg-1.2.1.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/0667ac0c67560091ee489e223817f56f9ced759a/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/ac287daf09298d436769eb4917ef43b6aabee14f/output/jars/libs/androidsvg-1.2.1.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/ac287daf09298d436769eb4917ef43b6aabee14f/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/ac287daf09298d436769eb4917ef43b6aabee14f/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
