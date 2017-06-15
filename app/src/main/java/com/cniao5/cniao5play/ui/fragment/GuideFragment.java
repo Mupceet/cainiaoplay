@@ -50,7 +50,6 @@ public class GuideFragment extends Fragment {
         bundle.putInt(COLOR_ID, bgColorResId);
         bundle.putInt(TEXT_ID, textResId);
 
-
         guideFragment.setArguments(bundle);
         return guideFragment;
     }
@@ -60,7 +59,6 @@ public class GuideFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_guide, container, false);
-
         unbinder = ButterKnife.bind(this, mView);
 
         initData();

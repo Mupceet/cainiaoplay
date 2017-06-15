@@ -1,5 +1,6 @@
 package com.cniao5.cniao5play.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.cniao5.cniao5play.R;
 import com.cniao5.cniao5play.common.Constant;
+import com.cniao5.cniao5play.common.uitls.ACache;
 import com.cniao5.cniao5play.ui.adapter.GuideFragmentAdapter;
 import com.cniao5.cniao5play.ui.fragment.GuideFragment;
 import com.cniao5.cniao5play.ui.widget.CircleIndicator;
@@ -79,13 +81,13 @@ public class GuideActivity extends AppCompatActivity  implements ViewPager.OnPag
 
     }
 
-//    @OnClick(R.id.btn_enter)
-//    public void onClick() {
-//
-//        ACache.get(this).put(Constant.IS_SHOW_GUIDE,"0");
-//        startActivity(new Intent(this,MainActivity.class));
-//        this.finish();
-//
-//    }
+    @OnClick(R.id.btn_enter)
+    public void onClick() {
+
+        ACache.get(this).put(Constant.HAS_SHOWED_GUIDE, "1");
+        startActivity(new Intent(this, MainActivity.class));
+        this.finish();
+
+    }
 
 }

@@ -5,4 +5,6 @@ package com.cniao5.cniao5play.common;
  */
 
 public class Constant {
+
+    public static final String HAS_SHOWED_GUIDE = "has_showed_guide";
 }

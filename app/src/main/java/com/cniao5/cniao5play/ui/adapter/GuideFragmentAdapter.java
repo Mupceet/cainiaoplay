@@ -15,7 +15,7 @@ public class GuideFragmentAdapter extends FragmentPagerAdapter {
 
     public void setFragments(List<Fragment> fragments) {
         if (fragments == null) {
-            mFragments = new ArrayList<>();
+            mFragments = new ArrayList<>(); // 避免getCount报NPE
         } else {
             mFragments = fragments;
         }

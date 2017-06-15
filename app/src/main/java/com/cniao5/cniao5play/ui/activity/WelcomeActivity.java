@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.cniao5.cniao5play.R;
+import com.cniao5.cniao5play.common.Constant;
+import com.cniao5.cniao5play.common.uitls.ACache;
 import com.eftimoff.androipathview.PathView;
 
 import butterknife.BindView;
@@ -37,7 +39,14 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void jump() {
-        startActivity(new Intent(this, MainActivity.class));
+
+        String hasShowedGuid = ACache.get(this).getAsString(Constant.HAS_SHOWED_GUIDE);
+
+        if (hasShowedGuid != null) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else {
+            startActivity(new Intent(this, GuideActivity.class));
+        }
         this.finish();
     }
 

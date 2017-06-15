@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.android/build-cache/f3033b9b07aaf5e6447fef9b7e1dbdc57e765d5a/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mikepenz/iconics-core/2.8.3/60c568aa44f0c2667e58217783a2aa1703d64e65/iconics-core-2.8.3-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
