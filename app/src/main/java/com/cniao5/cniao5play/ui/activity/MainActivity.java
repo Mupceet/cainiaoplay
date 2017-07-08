@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.cniao5.cniao5play.R;
 import com.cniao5.cniao5play.di.component.AppComponent;
 import com.cniao5.cniao5play.ui.adapter.ViewPagerAdapter;
+import com.gyf.barlibrary.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,8 +39,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        ImmersionBar.with(this).titleBar(R.id.tool_bar).init();
     }
 
     @Override
