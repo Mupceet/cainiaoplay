@@ -5,6 +5,7 @@ import com.cniao5.cniao5play.bean.PageBean;
 import com.cniao5.cniao5play.data.http.ApiService;
 
 import retrofit2.Callback;
+import rx.Observable;
 
 /**
  * Created by Ivan on 2017/1/3.
@@ -16,9 +17,9 @@ public class RecommendModel {
     public RecommendModel(ApiService apiService) {
         mApiService = apiService;
     }
-    public void getApps(Callback<PageBean<AppInfo>> callback) {
+    public Observable<PageBean<AppInfo>> getApps() {
 
-        mApiService.getApps("{'page':0}").enqueue(callback);
+        return mApiService.getApps("{'page':0}");
 
     }
 

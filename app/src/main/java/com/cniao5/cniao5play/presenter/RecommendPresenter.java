@@ -10,6 +10,9 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Ivan on 2017/1/3.
@@ -23,23 +26,52 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
     }
 
     public void requestData() {
-        mView.showLoading();
-        mModel.getApps(new Callback<PageBean<AppInfo>>() {
-            @Override
-            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
-                if (response != null) {
-                    mView.showResult(response.body().getDatas());
-                } else {
-                    mView.showNoData();
-                }
-                mView.dismissLoading();
-            }
+        mModel.getApps()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<PageBean<AppInfo>>() {
+                    @Override
+                    public void onStart() {
+                        mView.showLoading();
+                    }
 
-            @Override
-            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
-                mView.dismissLoading();
-                mView.showError(t.getMessage());
-            }
-        });
+                    @Override
+                    public void onCompleted() {
+                        mView.dismissLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.dismissLoading();
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+                        if (appInfoPageBean != null) {
+                            mView.showResult(appInfoPageBean.getDatas());
+                        } else {
+                            mView.showNoData();
+                        }
+                        mView.dismissLoading();
+                    }
+                });
+//        mModel.getApps(new Callback<PageBean<AppInfo>>() {
+//            @Override
+//            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
+//                if (response != null) {
+//                    mView.showResult(response.body().getDatas());
+//                } else {
+//                    mView.showNoData();
+//                }
+//                mView.dismissLoading();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
+//                mView.dismissLoading();
+//                mView.showError(t.getMessage());
+//            }
+//        });
     }
 }
