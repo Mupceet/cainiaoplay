@@ -2,6 +2,8 @@ package com.cniao5.cniao5play.di.component;
 
 import android.app.Application;
 
+import com.cniao5.cniao5play.AppApplication;
+import com.cniao5.cniao5play.common.rx.RxErrorHandler;
 import com.cniao5.cniao5play.data.http.ApiService;
 import com.cniao5.cniao5play.di.module.ApplicationModule;
 import com.cniao5.cniao5play.di.module.HttpModule;
@@ -18,5 +20,9 @@ import dagger.Component;
 public interface AppComponent {
 
     ApiService getApiService();
+
+    Application getApplication();
+
+    RxErrorHandler getRxErrorHandler();
 
 }

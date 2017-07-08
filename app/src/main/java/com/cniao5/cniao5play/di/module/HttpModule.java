@@ -1,5 +1,9 @@
 package com.cniao5.cniao5play.di.module;
 
+import android.app.Application;
+
+import com.cniao5.cniao5play.AppApplication;
+import com.cniao5.cniao5play.common.rx.RxErrorHandler;
 import com.cniao5.cniao5play.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -60,7 +64,14 @@ public class HttpModule {
     }
 
     @Provides
+    @Singleton
     public ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RxErrorHandler provideRxErrorHandler(Application application) {
+        return new RxErrorHandler(application);
     }
 }

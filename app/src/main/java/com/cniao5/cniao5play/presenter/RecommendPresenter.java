@@ -1,7 +1,11 @@
 package com.cniao5.cniao5play.presenter;
 
 import com.cniao5.cniao5play.bean.AppInfo;
+import com.cniao5.cniao5play.bean.BaseBean;
 import com.cniao5.cniao5play.bean.PageBean;
+import com.cniao5.cniao5play.common.rx.RxErrorHandler;
+import com.cniao5.cniao5play.common.rx.RxHttpResponseCompat;
+import com.cniao5.cniao5play.common.rx.suscriber.ErrorHandlerSubscriber;
 import com.cniao5.cniao5play.data.RecommendModel;
 import com.cniao5.cniao5play.presenter.contract.RecommendContract;
 
@@ -20,16 +24,18 @@ import rx.schedulers.Schedulers;
 
 public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
 
+    private final RxErrorHandler mRxErrorHandler;
+
     @Inject
-    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+    public RecommendPresenter(RecommendModel model, RecommendContract.View view, RxErrorHandler errorHandler) {
         super(model, view);
+        mRxErrorHandler = errorHandler;
     }
 
     public void requestData() {
         mModel.getApps()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PageBean<AppInfo>>() {
+                .compose(RxHttpResponseCompat.<PageBean<AppInfo>> compatResult())
+                .subscribe(new ErrorHandlerSubscriber<PageBean<AppInfo>>(mRxErrorHandler) {
                     @Override
                     public void onStart() {
                         mView.showLoading();
@@ -43,7 +49,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
                     @Override
                     public void onError(Throwable e) {
                         mView.dismissLoading();
-                        mView.showError(e.getMessage());
+                        super.onError(e);
                     }
 
                     @Override

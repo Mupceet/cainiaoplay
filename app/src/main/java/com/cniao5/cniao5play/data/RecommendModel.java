@@ -1,6 +1,7 @@
 package com.cniao5.cniao5play.data;
 
 import com.cniao5.cniao5play.bean.AppInfo;
+import com.cniao5.cniao5play.bean.BaseBean;
 import com.cniao5.cniao5play.bean.PageBean;
 import com.cniao5.cniao5play.data.http.ApiService;
 
@@ -17,7 +18,7 @@ public class RecommendModel {
     public RecommendModel(ApiService apiService) {
         mApiService = apiService;
     }
-    public Observable<PageBean<AppInfo>> getApps() {
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
 
         return mApiService.getApps("{'page':0}");
 
