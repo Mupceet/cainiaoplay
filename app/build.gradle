@@ -52,4 +52,6 @@ dependencies {
     compile 'com.eftimoff:android-pathview:1.0.8@aar'
     // ImmersionBar
     compile 'com.gyf.barlibrary:barlibrary:2.2.5'
+    // Material Dialog
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
 }

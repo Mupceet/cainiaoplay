@@ -6,6 +6,7 @@ import com.cniao5.cniao5play.bean.PageBean;
 import com.cniao5.cniao5play.common.rx.RxErrorHandler;
 import com.cniao5.cniao5play.common.rx.RxHttpResponseCompat;
 import com.cniao5.cniao5play.common.rx.suscriber.ErrorHandlerSubscriber;
+import com.cniao5.cniao5play.common.rx.suscriber.ProgressDialogSubscriber;
 import com.cniao5.cniao5play.data.RecommendModel;
 import com.cniao5.cniao5play.presenter.contract.RecommendContract;
 
@@ -24,34 +25,15 @@ import rx.schedulers.Schedulers;
 
 public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
 
-    private final RxErrorHandler mRxErrorHandler;
-
     @Inject
-    public RecommendPresenter(RecommendModel model, RecommendContract.View view, RxErrorHandler errorHandler) {
+    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
         super(model, view);
-        mRxErrorHandler = errorHandler;
     }
 
     public void requestData() {
         mModel.getApps()
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>> compatResult())
-                .subscribe(new ErrorHandlerSubscriber<PageBean<AppInfo>>(mRxErrorHandler) {
-                    @Override
-                    public void onStart() {
-                        mView.showLoading();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        mView.dismissLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.dismissLoading();
-                        super.onError(e);
-                    }
-
+                .subscribe(new ProgressDialogSubscriber<PageBean<AppInfo>>(mContext) {
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         if (appInfoPageBean != null) {
@@ -59,9 +41,40 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
                         } else {
                             mView.showNoData();
                         }
-                        mView.dismissLoading();
+                    }
+
+                    @Override
+                    protected boolean shouldShowDialog() {
+                        return true;
                     }
                 });
+//                .subscribe(new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext) {
+//                    @Override
+//                    public void onStart() {
+//                        mView.showLoading();
+//                    }
+//
+//                    @Override
+//                    public void onCompleted() {
+//                        mView.dismissLoading();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        mView.dismissLoading();
+//                        super.onError(e);
+//                    }
+//
+//                    @Override
+//                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+//                        if (appInfoPageBean != null) {
+//                            mView.showResult(appInfoPageBean.getDatas());
+//                        } else {
+//                            mView.showNoData();
+//                        }
+//                        mView.dismissLoading();
+//                    }
+//                });
 //        mModel.getApps(new Callback<PageBean<AppInfo>>() {
 //            @Override
 //            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {

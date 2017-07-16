@@ -43,7 +43,10 @@ public class RecommendAppAdapter extends RecyclerView.Adapter<RecommendAppAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         AppInfo appInfo = mDatas.get(position);
         String baseImgUrl = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
-        Picasso.with(mContext).load(baseImgUrl + appInfo.getIcon()).into(holder.mImgIcon);
+        Picasso.with(mContext)
+                .load(baseImgUrl + appInfo.getIcon())
+                .placeholder(R.mipmap.ic_ref)
+                .into(holder.mImgIcon);
 
         holder.mTextTitle.setText(appInfo.getDisplayName());
         holder.mTextSize.setText((appInfo.getApkSize() / 1024 / 1024) + " MB");

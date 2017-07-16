@@ -1,5 +1,7 @@
 package com.cniao5.cniao5play.common.rx.suscriber;
 
+import android.content.Context;
+
 import com.cniao5.cniao5play.common.exception.ApiException;
 import com.cniao5.cniao5play.common.exception.BaseException;
 import com.cniao5.cniao5play.common.exception.ErrorMessageFactory;
@@ -20,8 +22,8 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
 
     private RxErrorHandler mRxErrorHandler;
 
-    public ErrorHandlerSubscriber(RxErrorHandler rxErrorHandler) {
-        mRxErrorHandler = rxErrorHandler;
+    public ErrorHandlerSubscriber(Context context) {
+        mRxErrorHandler = new RxErrorHandler(context);
     }
 
     @Override

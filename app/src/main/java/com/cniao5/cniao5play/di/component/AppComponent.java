@@ -23,6 +23,4 @@ public interface AppComponent {
 
     Application getApplication();
 
-    RxErrorHandler getRxErrorHandler();
-
 }
