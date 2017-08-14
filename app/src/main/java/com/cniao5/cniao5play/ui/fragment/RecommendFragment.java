@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
  * Created by Ivan on 16/9/26.
  */
 
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
 
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
@@ -71,6 +71,11 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
         mPresenter.requestData();
     }
 
+    @Override
+    public void onEmptyViewClick() {
+        mPresenter.requestData();
+    }
+
     private void initRecycleView(List<AppInfo> datas) {
         //为RecyclerView设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -92,20 +97,4 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
         Toast.makeText(getActivity(), "暂时无数据，请吃完饭再来", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void showError(String msg) {
-        Toast.makeText(getActivity(), "服务器开小差了：" + msg, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showLoading() {
-        mProgressDialog.show();
-    }
-
-    @Override
-    public void dismissLoading() {
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 }

@@ -20,7 +20,7 @@ import retrofit2.adapter.rxjava.HttpException;
 
 public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
 
-    private RxErrorHandler mRxErrorHandler;
+    protected RxErrorHandler mRxErrorHandler;
 
     public ErrorHandlerSubscriber(Context context) {
         mRxErrorHandler = new RxErrorHandler(context);

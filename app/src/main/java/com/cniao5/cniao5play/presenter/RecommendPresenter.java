@@ -7,6 +7,7 @@ import com.cniao5.cniao5play.common.rx.RxErrorHandler;
 import com.cniao5.cniao5play.common.rx.RxHttpResponseCompat;
 import com.cniao5.cniao5play.common.rx.suscriber.ErrorHandlerSubscriber;
 import com.cniao5.cniao5play.common.rx.suscriber.ProgressDialogSubscriber;
+import com.cniao5.cniao5play.common.rx.suscriber.ProgressSubscriber;
 import com.cniao5.cniao5play.data.RecommendModel;
 import com.cniao5.cniao5play.presenter.contract.RecommendContract;
 
@@ -33,7 +34,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
     public void requestData() {
         mModel.getApps()
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>> compatResult())
-                .subscribe(new ProgressDialogSubscriber<PageBean<AppInfo>>(mContext) {
+                .subscribe(new ProgressSubscriber<PageBean<AppInfo>>(mContext, mView) {
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         if (appInfoPageBean != null) {
