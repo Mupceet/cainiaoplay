@@ -2,9 +2,9 @@ package com.cniao5.cniao5play.di.module;
 
 import android.app.Application;
 
-import com.cniao5.cniao5play.AppApplication;
-import com.cniao5.cniao5play.common.rx.RxErrorHandler;
+import com.cniao5.cniao5play.common.http.CommonParamsInterceptor;
 import com.cniao5.cniao5play.data.http.ApiService;
+import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +27,7 @@ public class HttpModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient() {
+    public OkHttpClient provideOkHttpClient(Application appApplication, Gson gson) {
         // log用拦截器
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
@@ -41,6 +41,8 @@ public class HttpModule {
 //                 HeadInterceptor实现了Interceptor，用来往Request Header添加一些业务相关数据，如APP版本，token信息
 //                .addInterceptor(new HeadInterceptor())
                 .addInterceptor(logging)
+                .addInterceptor(new CommonParamsInterceptor(appApplication, gson))
+//                .addInterceptor(new CommonParamsInterceptor(appApplication, gson))
                 // 连接超时时间设置
                 .connectTimeout(10, TimeUnit.SECONDS)
                 // 读取超时时间设置
